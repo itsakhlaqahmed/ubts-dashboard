@@ -2,7 +2,10 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  
 }
+
+
 
 body {
   width: 100vw;
@@ -11,7 +14,7 @@ body {
 .header {
   display: flex;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-end;
 
   /* flex-wrap: nowrap; */
   padding: 16px 36px;
@@ -19,6 +22,19 @@ body {
   color: white;
   width: 100%;
   background-color: cadetblue;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.nav-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: black;
 }
 
 .nav-container ul {
@@ -50,6 +66,7 @@ body {
 }
 
 .nav-container .profile-pic {
+  all: unset;
   height: 40px;
   width: 40px;
   overflow: hidden;
