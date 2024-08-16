@@ -1,0 +1,52 @@
+.leftdrawer-container {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 20vw;
+  background-color: #21331d;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 16px 24px;
+}
+
+.ubts-logo {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 600;
+  padding-left: 12px;
+}
+
+.links-container {
+  padding: 16px 0;
+}
+
+.links-container ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.links-container ul li {
+  list-style: none;
+  padding: 12px 0;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.links-container ul li:hover {
+  background-color: #ffffff1a;
+}
+
+.links-container ul li a {
+  width: 100%;
+  text-decoration: none;
+  color: #fff;
+  padding: 16px;
+  font-size: 1.2rem;
+}
+
+.links-container ul li svg {
+  box-sizing: content-box;
+  padding-right: 12px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.2rem;
+}

@@ -6,22 +6,18 @@
 }
 
 
-
-body {
-  width: 100vw;
-}
-
 .header {
+  align-self: stretch;
+  
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
-  /* flex-wrap: nowrap; */
   padding: 16px 36px;
   position: relative;
   color: white;
-  width: 100%;
-  background-color: cadetblue;
+  width: 80vw;
+  background-color: #fff;
+
 }
 
 .nav-container {
@@ -50,23 +46,26 @@ body {
 .nav-container .notification-icon-box {
   /* all: unset;  it resets all the prvs props of the element*/ 
   border: none;
-  height: 36px;
-  width: 36px;
+  height: 40px;
+  width: 40px;
   border-radius: 8px !important;
   overflow: hidden;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(234, 236, 235);
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .nav-container .notificaion-icon {
-  color: rgb(146, 145, 145);
+  color: #84848c;
+  font-size: 1.2rem;
 }
 
 .nav-container .profile-pic {
   all: unset;
+  cursor: pointer;
   height: 40px;
   width: 40px;
   overflow: hidden;
