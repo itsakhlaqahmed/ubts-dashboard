@@ -4,13 +4,13 @@ import LeftDrawer from "../left-drawer/LeftDrawer";
 import "./main-container.css";
 import InfoCard from "../infoCards/InfoCard";
 
-const MainContainer = () => {
+const MainContainer = ({children}) => {
   return (
     <div className="main-container">
       <LeftDrawer />
-      <div className="content-panel">
+      <div className="main-display-panel">
         <Navbar />
-        <InfoCard />
+        {children}
         
       </div>
     </div>
