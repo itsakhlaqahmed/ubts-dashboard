@@ -35,7 +35,7 @@ const Navbar = ({ name }) => {
             </li>
             <li>
               <button className="profile-pic" onClick={onClickProfile}>
-                <img src={userImage} alt="Profile Picture" />
+                <img src={userImage} alt="Profile" />
                 <p className="user-name">{name}</p>
               </button>
             </li>
