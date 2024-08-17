@@ -2,7 +2,7 @@ import React from "react";
 import "./leftdrawer.css";
 import { Link } from "react-router-dom";
 import { FaHouse, FaBusSimple, FaRoute } from "react-icons/fa6";
-import { IoIosPeople } from "react-icons/io";
+import { PiStudentFill } from "react-icons/pi";
 
 const LeftDrawer = () => {
   return (
@@ -13,7 +13,7 @@ const LeftDrawer = () => {
 
       <div className="links-container">
         <ul>
-          <li style={{background: '#ffffff2a',}}>
+          <li style={{ background: "#ffffff2a" }}>
             <Link to="/">
               <FaHouse />
               Home
@@ -21,8 +21,8 @@ const LeftDrawer = () => {
           </li>
           <li>
             <Link to="/">
-              <IoIosPeople />
-              Passengers
+              <PiStudentFill />
+              Students
             </Link>
           </li>
           <li>
