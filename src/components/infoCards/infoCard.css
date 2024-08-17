@@ -14,7 +14,7 @@
 
 .infocard-heading {
   display: flex;
-  gap: 4px;
+  gap: 8px;
   align-items: center;
   text-align: left;
   width: 100%;

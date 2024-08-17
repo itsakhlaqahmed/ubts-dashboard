@@ -1,5 +1,5 @@
 import React from "react";
-import MainContainer from "./container/MainContainer";
+import MainContainer from "./components/container/MainContainer";
 import Home from "./pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 

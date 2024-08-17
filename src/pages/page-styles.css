@@ -1,8 +1,9 @@
+/* ------------------- Home -------------------  */
+
 .infocard-row {
   margin-top: 72px;
   display: flex;
   gap: 48px;
-  justify-content: space-evenly;
   justify-content: space-evenly;
   flex-wrap: wrap;
   padding: 0 48px;
