@@ -2,22 +2,19 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  
 }
-
 
 .header {
   align-self: stretch;
-  
+
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 16px 36px;
   position: relative;
   color: white;
-  width: 80vw;
+  min-width: 80vw;
   background-color: #fff;
-
 }
 
 .nav-container {
@@ -44,7 +41,7 @@
 }
 
 .nav-container .notification-icon-box {
-  /* all: unset;  it resets all the prvs props of the element*/ 
+  /* all: unset;  it resets all the prvs props of the element*/
   border: none;
   height: 40px;
   width: 40px;
