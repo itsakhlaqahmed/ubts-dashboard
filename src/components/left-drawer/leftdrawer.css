@@ -1,6 +1,7 @@
 .leftdrawer-container {
   box-sizing: border-box;
   height: 100vh;
+  /* height: 100%; */
   width: 20vw;
   background-color: #cd4f1d;
   background-color: #21331d;

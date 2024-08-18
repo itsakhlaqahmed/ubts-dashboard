@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* ------------------- Home -------------------  */
 
 .infocard-row {
@@ -7,4 +13,106 @@
   justify-content: space-evenly;
   flex-wrap: wrap;
   padding: 0 48px;
+}
+
+/* ------------------- Students Page -------------------  */
+
+.table-container {
+  /* border: 1px solid rgb(199, 197, 197); */
+  border-radius: 8px;
+  margin: 72px 60px 0 60px;
+  padding: 32px 60px 120px;
+  background-color: rgba(246, 246, 246, 0.389);
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;  
+  /* width: max-content; */
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  /* justify-content: left; */
+}
+
+
+.tableTitle {
+  display: flex;
+  flex-direction: column;
+  /* gap: ; */
+  width: 100%;
+  justify-content: left;
+}
+
+.tableTitle-main {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tableTitle-sub {
+  font-size: .8rem;
+  color: grey;
+  margin-bottom: 24px;
+}
+
+.table-container table {
+  padding-top: 24px;
+}
+
+
+.table-container tr {
+  border-bottom: 2px solid rgb(204, 204, 204);
+}
+
+.table-container thead th {
+  color: grey;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 12px 100px 12px 0;
+  /* margin-left: 24px; */
+  /* background-color: pink; */
+  text-align: left;
+}
+
+.table-container thead th:nth-child(1) {
+  padding: 12px 72px 12px 0;
+}
+
+.table-container thead th:nth-last-child(1) {
+  padding: 12px 0;
+}
+
+.table-container tbody td {
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 12px 100px 12px 0;
+  /* margin-left: 24px; */
+  /* background-color: pink; */
+  text-align: left;
+}
+
+.table-container tbody td:nth-child(1) {
+  padding: 12px 72px 12px 0;
+}
+
+.table-container tbody td:nth-last-child(1) {
+  padding: 12px 0;
+}
+
+.approved {
+  align-items: center;
+  width: max-content;
+  text-align: center;
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  background-color: #c4f4e6;
+  color: #00a873;
+  border-radius: 50px;
+}
+
+.notApproved {
+  width: max-content;
+  text-align: center;
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  background-color: #fcd6d3;
+  color: #fe2c25;
+  border-radius: 50px;
 }

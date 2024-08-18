@@ -22,7 +22,7 @@ const Home = () => {
   };
 
   return (
-    <MainContainer>
+    <MainContainer activeTab={1}>
       <div className="infocard-row">
         <InfoCard
           icon={<PiStudentFill />}

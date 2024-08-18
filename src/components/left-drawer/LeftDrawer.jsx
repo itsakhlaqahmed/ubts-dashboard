@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { FaHouse, FaBusSimple, FaRoute } from "react-icons/fa6";
 import { PiStudentFill } from "react-icons/pi";
 
-const LeftDrawer = () => {
+const LeftDrawer = ({ activeTab }) => {
   return (
     <div className="leftdrawer-container">
       <div className="logo-container">
@@ -13,25 +13,25 @@ const LeftDrawer = () => {
 
       <div className="links-container">
         <ul>
-          <li style={{ background: "#ffffff2a" }}>
+          <li style={activeTab == 1 ? { background: "#ffffff2a" } : {}}>
             <Link to="/">
               <FaHouse />
               Home
             </Link>
           </li>
-          <li>
-            <Link to="/">
+          <li style={activeTab == 2 ? { background: "#ffffff2a" } : {}}>
+            <Link to="/students">
               <PiStudentFill />
               Students
             </Link>
           </li>
-          <li>
+          <li style={activeTab == 3 ? { background: "#ffffff2a" } : {}}>
             <Link to="/">
               <FaBusSimple />
               Drivers
             </Link>
           </li>
-          <li>
+          <li style={activeTab == 4 ? { background: "#ffffff2a" } : {}}>
             <Link to="/">
               <FaRoute />
               Routes
