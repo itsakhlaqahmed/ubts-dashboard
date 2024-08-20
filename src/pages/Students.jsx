@@ -4,7 +4,7 @@ import "./page-styles.css";
 import useDataFetch from "../hooks/useDataFetch";
 import { ShimmerDiv } from "shimmer-effects-react";
 import { IoMdRefreshCircle } from "react-icons/io";
-import { FaCheck } from "react-icons/fa6";
+import axios from "axios";
 
 const Students = () => {
   var allStudents = [];
@@ -27,11 +27,12 @@ const Students = () => {
             firebaseId: userObject.name,
             name: Object.values(userObject.fields.fullName)[0],
             studentId: Object.values(userObject.fields.studentId)[0],
-            email: Object.values(userObject.fields.email),
-            busRoute: Object.values(userObject.fields.busRoute),
-            userType: Object.values(userObject.fields.userType),
+            email: Object.values(userObject.fields.email)[0],
+            busRoute: Object.values(userObject.fields.busRoute)[0],
+            userType: Object.values(userObject.fields.userType)[0],
             isApproved: Object.values(userObject.fields.isApproved),
           };
+          // console.log(typeof user.name)
           allStudents.push(user);
         } catch (err) {
           // alert(err);
@@ -39,15 +40,13 @@ const Students = () => {
       });
     }
 
-    allStudents.map((student) => {
-      if (student.isApproved === "true") {
+    allStudents.forEach((student) => {
+      if (student.isApproved == "true") {
         Approved += 1;
       }
       return;
     });
   };
-
-  refineStudentData();
 
   const onClickRefresh = () => {
     setRefresh((value) => !value);
@@ -57,9 +56,33 @@ const Students = () => {
     return text.length < 20 ? text : text.slice(0, limit).trim() + "...";
   };
 
-  const allowUser = (id) => {
-    const url = `https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users/${id}`;
+  const allowUser = async (user) => {
+    const url = `https://firestore.googleapis.com/v1/${user.firebaseId}`;
+    var body = { ...user, isApproved: "true" };
+    delete body["firebaseId"];
+    console.log(body);
+
+    try {
+      // axios({
+      //   url: url,
+      //   method: "patch",
+      //   data: JSON.stringify(body),
+      // });
+      fetch(url, {
+        method: "PATCH",
+        body: JSON.stringify(body),
+      });
+    } catch (err) {
+      console.error("Error:", err.message); // Log error message
+      console.error("Status Code:", err); // Log status code
+      console.error("Response Data:", err.response);
+    }
   };
+
+  // https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users/imFv9EtmG3gbb2qElUaUJENdxiF2
+  // https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users/2hswXR6EeUZeN7T86MW3hnouPFx1"
+
+  refineStudentData(); // call to convert to requried form
 
   return (
     <MainContainer activeTab={2}>
@@ -99,21 +122,34 @@ const Students = () => {
               </tr>
             </thead>
             <tbody>
-              {allStudents.forEach((student) => (
+              {allStudents.map((student) => (
                 <tr>
                   <td>{limitLength(student.name)}</td>
                   <td>{limitLength(student.studentId)}</td>
                   <td>{limitLength(student.email)}</td>
                   <td>{student.busRoute}</td>
                   <td>
-                    {student.isApproved === "true" ? (
+                    {student.isApproved == "true" ? (
                       <div className="approved">Approved</div>
                     ) : (
                       <div className="notApproved">Not Approved</div>
                     )}
                   </td>
                   <td>
-                    <div className="table-allow-btn"></div>
+                    <div className="action-btns">
+                      <button
+                        className="table-text-btn allow-btn"
+                        onClick={() => {
+                          allowUser(student);
+                        }}
+                      >
+                        Allow
+                      </button>
+
+                      <button className="table-text-btn delete-btn">
+                        Delete
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
