@@ -1,88 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MainContainer from "../components/container/MainContainer";
 import "./page-styles.css";
-import useDataFetch from "../hooks/useDataFetch";
 import { ShimmerDiv } from "shimmer-effects-react";
 import { IoMdRefreshCircle } from "react-icons/io";
-import axios from "axios";
+import { getAllDocuments } from "../firebase/firebaseService";
 
 const Students = () => {
-  var allStudents = [];
+  const [students, setStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
-  var count = allStudents.length;
-  var Approved = 0;
-
-  const userDb =
-    "https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users";
-
-  const { isLoading, data, setRefresh } = useDataFetch(userDb);
-
-  const refineStudentData = () => {
-    if (data) {
-      const userData = data.documents;
-
-      userData.map((userObject) => {
-        try {
-          const user = {
-            firebaseId: userObject.name,
-            name: Object.values(userObject.fields.fullName)[0],
-            studentId: Object.values(userObject.fields.studentId)[0],
-            email: Object.values(userObject.fields.email)[0],
-            busRoute: Object.values(userObject.fields.busRoute)[0],
-            userType: Object.values(userObject.fields.userType)[0],
-            isApproved: Object.values(userObject.fields.isApproved),
-          };
-          // console.log(typeof user.name)
-          allStudents.push(user);
-        } catch (err) {
-          // alert(err);
-        }
-      });
-    }
-
-    allStudents.forEach((student) => {
-      if (student.isApproved == "true") {
-        Approved += 1;
-      }
-      return;
-    });
+  const getStudents = async () => {
+    const students = await getAllDocuments("users");
+    if (students) setStudents(students);
+    setIsLoading(false);
   };
 
-  const onClickRefresh = () => {
-    setRefresh((value) => !value);
+  const refresh = async () => {
+    setRefreshing(true);
+    await getStudents("users");
+    setRefreshing(false);
   };
+
+  useEffect(() => {
+    getStudents();
+  }, []);
+
+  let totalStudents = students.length;
+  let Approved = 0;
 
   const limitLength = (text, limit = 20) => {
     return text.length < 20 ? text : text.slice(0, limit).trim() + "...";
   };
 
-  const allowUser = async (user) => {
-    const url = `https://firestore.googleapis.com/v1/${user.firebaseId}`;
-    var body = { ...user, isApproved: "true" };
-    delete body["firebaseId"];
-    console.log(body);
-
-    try {
-      // axios({
-      //   url: url,
-      //   method: "patch",
-      //   data: JSON.stringify(body),
-      // });
-      fetch(url, {
-        method: "PATCH",
-        body: JSON.stringify(body),
-      });
-    } catch (err) {
-      console.error("Error:", err.message); // Log error message
-      console.error("Status Code:", err); // Log status code
-      console.error("Response Data:", err.response);
-    }
-  };
-
-  // https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users/imFv9EtmG3gbb2qElUaUJENdxiF2
-  // https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/users/2hswXR6EeUZeN7T86MW3hnouPFx1"
-
-  refineStudentData(); // call to convert to requried form
+  const allowUser = async (user) => {};
 
   return (
     <MainContainer activeTab={2}>
@@ -101,12 +52,17 @@ const Students = () => {
             <div className="tableTitle">
               <div className="tableTitle-main">Students</div>
               <div className="tableTitle-sub">
-                Total Students: {count} Approved: {Approved}, Pending:{" "}
-                {allStudents.length - Approved}
+                Total Students: {totalStudents} Approved: {Approved}, Pending:{" "}
+                {students.length - Approved}
               </div>
             </div>
-            <button className="refresh-btn" onClick={onClickRefresh}>
-              <IoMdRefreshCircle />
+            <button
+              className={
+                refreshing ? "refresh-btn refresh-btn-loading" : "refresh-btn"
+              }
+              onClick={refreshing ? null : refresh}
+            >
+              {refreshing ? <div class="loading"></div> : <IoMdRefreshCircle />}
             </button>
           </div>
 
@@ -122,12 +78,12 @@ const Students = () => {
               </tr>
             </thead>
             <tbody>
-              {allStudents.map((student) => (
-                <tr>
-                  <td>{limitLength(student.name)}</td>
-                  <td>{limitLength(student.studentId)}</td>
-                  <td>{limitLength(student.email)}</td>
-                  <td>{student.busRoute}</td>
+              {students.map((student) => (
+                <tr key={student.id}>
+                  <td>{limitLength(student.fullName ?? "null")}</td>
+                  <td>{limitLength(student.studentId ?? "null")}</td>
+                  <td>{limitLength(student.email ?? "null")}</td>
+                  <td>{student.busRoute ?? null}</td>
                   <td>
                     {student.isApproved == "true" ? (
                       <div className="approved">Approved</div>
