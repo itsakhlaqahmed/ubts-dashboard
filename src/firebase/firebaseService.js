@@ -1,6 +1,13 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCzplyeCw0lqtaAFocCxhhH__-uefHyGQQ",
@@ -44,4 +51,24 @@ export const getAllDocuments = async (collectionName) => {
   }
 };
 
-export default { getAllDocuments };
+export const updateDocument = async (newData, docId, collection) => {
+  try {
+    const docRef = doc(db, collection, docId);
+    await updateDoc(docRef, newData);
+  } catch (err) {
+    console.log("error 903: update doc error ");
+    console.log(err);
+  }
+};
+
+export const deleteDocument = async (docId, collection) => {
+  try {
+    const docRef = doc(db, collection, docId);
+    await deleteDoc(docRef);
+  } catch (err) {
+    console.log("error 904: delete doc error ");
+    console.log(err);
+  }
+};
+
+// export default { getAllDocuments };

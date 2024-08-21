@@ -3,22 +3,27 @@ import MainContainer from "../components/container/MainContainer";
 import "./page-styles.css";
 import { ShimmerDiv } from "shimmer-effects-react";
 import { IoMdRefreshCircle } from "react-icons/io";
-import { getAllDocuments } from "../firebase/firebaseService";
+import {
+  deleteDocument,
+  getAllDocuments,
+  updateDocument,
+} from "../firebase/firebaseService";
 
 const Students = () => {
   const [students, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const studentsDb = "users";
 
   const getStudents = async () => {
-    const students = await getAllDocuments("users");
+    const students = await getAllDocuments(studentsDb);
     if (students) setStudents(students);
     setIsLoading(false);
   };
 
   const refresh = async () => {
     setRefreshing(true);
-    await getStudents("users");
+    await getStudents();
     setRefreshing(false);
   };
 
@@ -33,8 +38,21 @@ const Students = () => {
     return text.length < 20 ? text : text.slice(0, limit).trim() + "...";
   };
 
-  const allowUser = async (user) => {};
+  const allowUser = async (student) => {
+    // let updatedData = { ...student, isApproved: "fale" };
+    // const id = updatedData.id;
+    // delete updatedData.id;
+    let { id, ...updatedData } = { ...student, isApproved: "true" }; //  another way to do the above 3 line code
 
+    await updateDocument(updatedData, id, studentsDb);
+    refresh();
+  };
+
+  const deleteUser = async (id) => {
+    await deleteDocument(id, studentsDb);
+    console.log("succ");
+    refresh();
+  };
   return (
     <MainContainer activeTab={2}>
       {isLoading ? (
@@ -62,7 +80,11 @@ const Students = () => {
               }
               onClick={refreshing ? null : refresh}
             >
-              {refreshing ? <div class="loading"></div> : <IoMdRefreshCircle />}
+              {refreshing ? (
+                <div className="loading"></div>
+              ) : (
+                <IoMdRefreshCircle />
+              )}
             </button>
           </div>
 
@@ -102,7 +124,12 @@ const Students = () => {
                         Allow
                       </button>
 
-                      <button className="table-text-btn delete-btn">
+                      <button
+                        className="table-text-btn delete-btn"
+                        onClick={() => {
+                          deleteUser(student.id);
+                        }}
+                      >
                         Delete
                       </button>
                     </div>
