@@ -8,11 +8,13 @@ import {
   getAllDocuments,
   updateDocument,
 } from "../firebase/firebaseService";
+import AddUserModal from "../components/addUserModal/AddUserModal";
 
 const Drivers = () => {
   const [drivers, setStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const driversDb = "drivers";
 
   useEffect(() => {
@@ -44,6 +46,10 @@ const Drivers = () => {
 
   const addDriver = async () => {};
 
+  const openModal = () => {
+    setShowModal(true);
+  };
+
   return (
     <MainContainer activeTab={3}>
       {isLoading ? (
@@ -56,85 +62,92 @@ const Drivers = () => {
           />
         </div>
       ) : (
-        <div className="table-container">
-          <div className="tableTitleRow">
-            <div className="tableTitle">
-              <div className="tableTitle-main">Bus Drivers</div>
-              <div className="tableTitle-sub">
-                Total drivers: {totalDrivers}
+        <div>
+          <AddUserModal
+            showModal={showModal}
+            onCloseModal={() => setShowModal(false)}
+          />
+          <div className="table-container">
+            <div className="tableTitleRow">
+              <div className="tableTitle">
+                <div className="tableTitle-main">Bus Drivers</div>
+                <div className="tableTitle-sub">
+                  Total drivers: {totalDrivers}
+                </div>
+              </div>
+              <div className="btns-section">
+                <button className="add-user-btn" onClick={openModal}>
+                  Add Driver
+                </button>
+                <button
+                  className={
+                    refreshing
+                      ? "refresh-btn refresh-btn-loading"
+                      : "refresh-btn"
+                  }
+                  onClick={refreshing ? null : refresh}
+                >
+                  {refreshing ? (
+                    <div className="loading"></div>
+                  ) : (
+                    <IoMdRefreshCircle />
+                  )}
+                </button>
               </div>
             </div>
-            <div className="btns-section">
-              <button className="add-user-btn" onClick={addDriver}>
-                Add Driver
-              </button>
-              <button
-                className={
-                  refreshing ? "refresh-btn refresh-btn-loading" : "refresh-btn"
-                }
-                onClick={refreshing ? null : refresh}
-              >
-                {refreshing ? (
-                  <div className="loading"></div>
-                ) : (
-                  <IoMdRefreshCircle />
-                )}
-              </button>
-            </div>
-          </div>
+            <table className="table" border={1} rules="rows" frame="void">
+              <thead>
+                <tr>
+                  <th>Driver Name</th>
+                  <th>Phone #</th>
+                  <th>Email</th>
+                  <th>About</th>
+                  <th>Account Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {drivers.map((driver) => (
+                  <tr key={driver.id}>
+                    <td>{limitLength(driver.name ?? "null")}</td>
+                    <td>{limitLength(driver.phone ?? "null")}</td>
+                    <td>{limitLength(driver.email ?? "null")}</td>
+                    <td>{limitLength(driver.about ?? "null")}</td>
+                    <td>
+                      {driver.isActive == "true" ? (
+                        <div className="approved">Active</div>
+                      ) : (
+                        <div className="notApproved">Disabled</div>
+                      )}
+                    </td>
+                    <td>
+                      <div className="action-btns">
+                        {driver.isActive ? null : (
+                          <button
+                            className="table-text-btn allow-btn"
+                            onClick={() => {
+                              //   allowUser(student);
+                            }}
+                          >
+                            Allow
+                          </button>
+                        )}
 
-          <table className="table" border={1} rules="rows" frame="void">
-            <thead>
-              <tr>
-                <th>Driver Name</th>
-                <th>Phone #</th>
-                <th>Email</th>
-                <th>About</th>
-                <th>Account Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {drivers.map((driver) => (
-                <tr key={driver.id}>
-                  <td>{limitLength(driver.name ?? "null")}</td>
-                  <td>{limitLength(driver.phone ?? "null")}</td>
-                  <td>{limitLength(driver.email ?? "null")}</td>
-                  <td>{limitLength(driver.about ?? "null")}</td>
-                  <td>
-                    {driver.isActive == "true" ? (
-                      <div className="approved">Active</div>
-                    ) : (
-                      <div className="notApproved">Disabled</div>
-                    )}
-                  </td>
-                  <td>
-                    <div className="action-btns">
-                      {driver.isActive ? null : (
                         <button
-                          className="table-text-btn allow-btn"
+                          className="table-text-btn delete-btn"
                           onClick={() => {
-                            //   allowUser(student);
+                            deleteDriver(driver.id);
                           }}
                         >
-                          Allow
+                          Delete
                         </button>
-                      )}
-
-                      <button
-                        className="table-text-btn delete-btn"
-                        onClick={() => {
-                          deleteDriver(driver.id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </MainContainer>

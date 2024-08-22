@@ -32,7 +32,7 @@ const LeftDrawer = ({ activeTab }) => {
             </Link>
           </li>
           <li style={activeTab == 4 ? { background: "#ffffff2a" } : {}}>
-            <Link to="/">
+            <Link to="/routes">
               <FaRoute />
               Routes
             </Link>

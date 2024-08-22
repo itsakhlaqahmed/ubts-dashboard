@@ -4,8 +4,6 @@
   box-sizing: border-box;
 }
 
-
-
 /* ------------------- Home -------------------  */
 
 .infocard-row {
@@ -19,8 +17,9 @@
 
 /* ------------------- Students Page -------------------  */
 
+
 .table-container {
-  /* border: 1px solid rgb(199, 197, 197); */
+  position: relative;
   border-radius: 8px;
   margin: 72px 60px 0 60px;
   padding: 32px 60px 120px;
