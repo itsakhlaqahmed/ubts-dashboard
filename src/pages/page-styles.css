@@ -4,6 +4,8 @@
   box-sizing: border-box;
 }
 
+
+
 /* ------------------- Home -------------------  */
 
 .infocard-row {
@@ -62,6 +64,27 @@
   margin-bottom: 24px;
 }
 
+.tableTitleRow .btns-section {
+  display: flex;
+  gap: 8px;
+}
+
+.add-user-btn {
+  border: none !important;
+  display: flex;
+  text-wrap: nowrap;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  height: 40px;
+  background-color: #2d4a26;
+  color: white;
+  /* color: #FD813B; */
+  border-radius: 8px;
+  cursor: pointer;
+}
+
 .refresh-btn {
   border: none !important;
   display: flex;
@@ -79,8 +102,8 @@
 }
 
 .refresh-btn-loading {
-   justify-content: start;
-   padding: 0 10px 18px 10px;
+  justify-content: start;
+  padding: 0 10px 18px 10px;
 }
 
 .loading {
@@ -114,7 +137,6 @@
     text-shadow: 0.25em 0 0 grey, 0.5em 0 0 grey;
   }
 }
-
 
 .table-container table {
   padding-top: 24px;

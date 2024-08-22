@@ -15,6 +15,19 @@ const Students = () => {
   const [refreshing, setRefreshing] = useState(false);
   const studentsDb = "users";
 
+  useEffect(() => {
+    getStudents();
+  }, []);
+
+  let totalStudents = students.length;
+  let approved = 0;
+
+  const getApprovedCount = () => {
+    students.map((student) => {
+      if (student.isApproved == "true") approved++;
+    });
+  };
+
   const getStudents = async () => {
     const students = await getAllDocuments(studentsDb);
     if (students) setStudents(students);
@@ -27,23 +40,15 @@ const Students = () => {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    getStudents();
-  }, []);
-
-  let totalStudents = students.length;
-  let Approved = 0;
-
   const limitLength = (text, limit = 20) => {
     return text.length < 20 ? text : text.slice(0, limit).trim() + "...";
   };
 
   const allowUser = async (student) => {
-    // let updatedData = { ...student, isApproved: "fale" };
+    // let updatedData = { ...student, isApproved: "false" };
     // const id = updatedData.id;
     // delete updatedData.id;
     let { id, ...updatedData } = { ...student, isApproved: "true" }; //  another way to do the above 3 line code
-
     await updateDocument(updatedData, id, studentsDb);
     refresh();
   };
@@ -53,6 +58,8 @@ const Students = () => {
     console.log("succ");
     refresh();
   };
+
+  getApprovedCount();
   return (
     <MainContainer activeTab={2}>
       {isLoading ? (
@@ -70,8 +77,8 @@ const Students = () => {
             <div className="tableTitle">
               <div className="tableTitle-main">Students</div>
               <div className="tableTitle-sub">
-                Total Students: {totalStudents} Approved: {Approved}, Pending:{" "}
-                {students.length - Approved}
+                Total Students: {totalStudents} Approved: {approved}, Pending:{" "}
+                {students.length - approved}
               </div>
             </div>
             <button

@@ -26,7 +26,7 @@ const LeftDrawer = ({ activeTab }) => {
             </Link>
           </li>
           <li style={activeTab == 3 ? { background: "#ffffff2a" } : {}}>
-            <Link to="/">
+            <Link to="/drivers">
               <FaBusSimple />
               Drivers
             </Link>
