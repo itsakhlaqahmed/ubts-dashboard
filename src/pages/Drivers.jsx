@@ -6,7 +6,7 @@ import { IoMdRefreshCircle } from "react-icons/io";
 import {
   deleteDocument,
   getAllDocuments,
-  updateDocument,
+  createDocument,
 } from "../firebase/firebaseService";
 import AddUserModal from "../components/addUserModal/AddUserModal";
 
@@ -44,8 +44,6 @@ const Drivers = () => {
     refresh();
   };
 
-  const addDriver = async () => {};
-
   const openModal = () => {
     setShowModal(true);
   };
@@ -66,6 +64,8 @@ const Drivers = () => {
           <AddUserModal
             showModal={showModal}
             onCloseModal={() => setShowModal(false)}
+            collectionName={"drivers"}
+            onSuccess={refresh}
           />
           <div className="table-container">
             <div className="tableTitleRow">
@@ -102,7 +102,6 @@ const Drivers = () => {
                   <th>Phone #</th>
                   <th>Email</th>
                   <th>About</th>
-                  <th>Account Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -114,25 +113,7 @@ const Drivers = () => {
                     <td>{limitLength(driver.email ?? "null")}</td>
                     <td>{limitLength(driver.about ?? "null")}</td>
                     <td>
-                      {driver.isActive == "true" ? (
-                        <div className="approved">Active</div>
-                      ) : (
-                        <div className="notApproved">Disabled</div>
-                      )}
-                    </td>
-                    <td>
                       <div className="action-btns">
-                        {driver.isActive ? null : (
-                          <button
-                            className="table-text-btn allow-btn"
-                            onClick={() => {
-                              //   allowUser(student);
-                            }}
-                          >
-                            Allow
-                          </button>
-                        )}
-
                         <button
                           className="table-text-btn delete-btn"
                           onClick={() => {

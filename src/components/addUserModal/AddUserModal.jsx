@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import "./add-user-modal.css";
+import { createDocument } from "../../firebase/firebaseService";
 
-const AddUserModal = ({ showModal, onCloseModal, onAddDriver }) => {
+const AddUserModal = ({
+  showModal,
+  onCloseModal,
+  collectionName,
+  onSuccess,
+}) => {
   const [isSendingData, setISendingData] = useState(false);
 
   const closeModal = (e) => {
@@ -22,8 +28,14 @@ const AddUserModal = ({ showModal, onCloseModal, onAddDriver }) => {
 
     setISendingData(true);
     try {
-      await onAddDriver(driver);
-    } catch (err) {}
+      await createDocument(driver, collectionName);
+      console.log("driver created");
+      event.target.reset();
+      onCloseModal();
+      onSuccess();
+    } catch (err) {
+      //handle err here
+    }
     setISendingData(false);
   };
 
@@ -37,19 +49,34 @@ const AddUserModal = ({ showModal, onCloseModal, onAddDriver }) => {
         <form onSubmit={addDriver}>
           <div className="form-input-group">
             <label htmlFor="name">Name*</label>
-            <input name="name" type="text" placeholder="Driver Name" />
+            <input name="name" type="text" placeholder="Driver Name" required />
           </div>
           <div className="form-input-group">
             <label htmlFor="email">Email*</label>
-            <input name="email" type="text" placeholder="driver@email.com" />
+            <input
+              name="email"
+              type="text"
+              placeholder="driver@email.com"
+              required
+            />
           </div>
           <div className="form-input-group">
             <label htmlFor="phone">Phone*</label>
-            <input name="phone" type="text" placeholder="03XX-XXXXXXXX" />
+            <input
+              name="phone"
+              type="text"
+              placeholder="03XX-XXXXXXXX"
+              required
+            />
           </div>
           <div className="form-input-group">
             <label htmlFor="password">Password*</label>
-            <input name="password" type="password" placeholder="Password" />
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
+            />
           </div>
           <div className="form-input-group">
             <label htmlFor="about">About</label>

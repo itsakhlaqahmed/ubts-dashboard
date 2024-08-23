@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import {
+  addDoc,
   collection,
   deleteDoc,
   doc,
@@ -38,6 +39,17 @@ const db = firebase.firestore();
 //     console.log(err);
 //   }
 // };
+
+export const createDocument = async (data, collectionName) => {
+  try {
+
+    const collectionRef = collection(db, collectionName);
+    await addDoc(collectionRef, data);
+  } catch (err) {
+    console.log('error 901: create doc err')
+    throw err;
+  }
+};
 
 export const getAllDocuments = async (collectionName) => {
   try {
