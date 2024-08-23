@@ -24,7 +24,6 @@ const Login = () => {
 
       const isAdmin = await getDocument("admin", userId);
 
-      console.log(`admin ${isAdmin}`);
 
       if (isAdmin) {
         e.target.reset();
@@ -36,7 +35,6 @@ const Login = () => {
       setIsError(true);
     }
     setIsLoading(false);
-    setIsAdmin(false);
 
   };
 

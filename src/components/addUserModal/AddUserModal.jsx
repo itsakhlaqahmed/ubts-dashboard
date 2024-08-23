@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import "./add-user-modal.css";
-import { createDocument } from "../../firebase/firebaseService";
+import {
+  createDocument,
+  createNewAccount,
+  signIn,
+} from "../../firebase/firebaseService";
+import { getAuth } from "@firebase/auth";
 
 const AddUserModal = ({
   showModal,
@@ -8,7 +13,7 @@ const AddUserModal = ({
   collectionName,
   onSuccess,
 }) => {
-  const [isSendingData, setISendingData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -18,25 +23,27 @@ const AddUserModal = ({
   const addDriver = async (event) => {
     event.preventDefault();
 
-    let driver = {
+    const driver = {
       name: event.target.elements.name.value,
       email: event.target.elements.email.value,
       phone: event.target.elements.phone.value,
-      password: event.target.elements.password.value,
       about: event.target.elements.about.value,
     };
 
-    setISendingData(true);
+    const password = event.target.elements.password.value;
+
+    setIsLoading(true);
     try {
+      await createNewAccount(driver.email, password);
       await createDocument(driver, collectionName);
-      console.log("driver created");
+      await signIn("admin@gmail.com", "admin123");
       event.target.reset();
       onCloseModal();
       onSuccess();
     } catch (err) {
       //handle err here
     }
-    setISendingData(false);
+    setIsLoading(false);
   };
 
   return (
@@ -91,7 +98,12 @@ const AddUserModal = ({
             <button className="cancel-btn" onClick={closeModal}>
               Cancel
             </button>
-            <button className="add-driver-btn">Add Driver</button>
+            <button
+              className="add-driver-btn"
+              style={{ background: isLoading && "#81a179" }}
+            >
+              Add Driver
+            </button>
           </div>
         </form>
       </div>
