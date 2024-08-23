@@ -1,3 +1,8 @@
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import {
@@ -24,31 +29,27 @@ firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 
-// const getDocument = async (docId = "nbP2rCt1r6cT08bGWKt6vH3DTdr2") => {
-//   try {
-//     const docRef = doc(db, studentsDb, docId);
-//     const docSnap = await getDoc(docRef);
-
-//     if (docSnap.exists) {
-//       console.log("data ******************************8");
-//       console.log(docSnap.data());
-//     }
-//   } catch (err) {
-//     console.log("error ******************************8");
-
-//     console.log(err);
-//   }
-// };
+const auth = getAuth();
 
 export const createDocument = async (data, collectionName) => {
   try {
-
     const collectionRef = collection(db, collectionName);
     await addDoc(collectionRef, data);
   } catch (err) {
-    console.log('error 901: create doc err')
+    console.log("error 901: create doc err");
     throw err;
   }
+};
+
+export const getDocument = async (collectionName, docId) => {
+  try {
+    const docRef = doc(db, collectionName, docId);
+    const snapshot = await getDoc(docRef);
+    return snapshot.exists();
+  } catch (err) {
+    console.log("get doc error");
+  }
+  return false;
 };
 
 export const getAllDocuments = async (collectionName) => {
@@ -80,6 +81,32 @@ export const deleteDocument = async (docId, collection) => {
   } catch (err) {
     console.log("error 904: delete doc error ");
     console.log(err);
+  }
+};
+
+export const createNewAccount = async (email, password) => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    console.log("error 905: signup error");
+  }
+};
+
+export const signIn = async (email, password) => {
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    return user;
+  } catch (err) {
+    console.log("error 906: login error");
+    throw err;
+  }
+};
+
+export const signOutUser = async () => {
+  try {
+    await auth.signOut();
+  } catch (err) {
+    console.log("signout error");
   }
 };
 
