@@ -60,13 +60,12 @@ const Home = () => {
           icon={<FaBusSimple />}
           heading="Drivers"
           caption="Drivers"
-          color={cardColors.blueAccent}
+          color={cardColors.purpleAccent}
           onFetchData={handleFirestoreData}
           url={
             "https://firestore.googleapis.com/v1/projects/flutter-test-project-58f59/databases/(default)/documents/drivers"
           }
         />
-        <InfoCard color={cardColors.purpleAccent} />
       </div>
     </MainContainer>
   );

@@ -60,7 +60,7 @@
   font-size: 1.2rem;
 }
 
-.nav-container .profile-pic {
+.profile-pic {
   all: unset;
   cursor: pointer;
   height: 40px;
@@ -74,4 +74,9 @@
   width: 100%;
   object-fit: cover;
   object-position: center;
+}
+
+
+.profile-pic p {
+  color: black;
 }

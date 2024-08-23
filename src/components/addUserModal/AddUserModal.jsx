@@ -55,7 +55,7 @@ const AddUserModal = ({
             <label htmlFor="email">Email*</label>
             <input
               name="email"
-              type="text"
+              type="email"
               placeholder="driver@email.com"
               required
             />

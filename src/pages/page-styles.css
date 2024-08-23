@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Sofia&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -15,8 +17,7 @@
   padding: 0 48px;
 }
 
-/* ------------------- Students Page -------------------  */
-
+/* ------------------- Students/Drivers Page -------------------  */
 
 .table-container {
   position: relative;
@@ -239,4 +240,88 @@
 .delete-btn {
   background-color: #fcd6d3;
   color: #fe2c25;
+}
+
+/* ------------------- Auth Pages ------------------- */
+
+.auth-container {
+  display: flex;
+  overflow: hidden;
+}
+
+.auth-left {
+  width: 50vw;
+  height: 100vh;
+  background-color: #21331d;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.auth-left .logo {
+  font-size: 6rem;
+  font-weight: 500;
+  color: #fff;
+  line-height: 7rem;
+  font-family: "Sofia", cursive;
+
+}
+
+.auth-left P {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #fff;
+  font-family: "Sofia", cursive;
+
+}
+
+.auth-right {
+  box-sizing: border-box;
+  width: 50vw;
+  height: 100vh;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eeede8;
+}
+
+.auth-title-row {
+  width: 400px;
+  align-items: left;
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.auth-form-container {
+  margin-top: 3rem;
+  width: 400px;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+}
+
+.login-btn {
+  margin-top: 3rem;
+  border: none !important;
+  display: flex;
+  text-wrap: nowrap;
+  font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  height: 40px;
+  width: 100%;
+  background-color: #2d4a26;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
 }

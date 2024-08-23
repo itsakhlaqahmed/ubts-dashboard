@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Navbar.css";
 
-import { FaBell } from "react-icons/fa6";
+import { FaBell, FaUser } from "react-icons/fa6";
 
 const Navbar = ({ name }) => {
   const [openNotificaitons, setOpenNotification] = useState(false);
@@ -34,9 +34,10 @@ const Navbar = ({ name }) => {
               </button>
             </li>
             <li>
-              <button className="profile-pic" onClick={onClickProfile}>
-                <img src={userImage} alt="Profile" />
-                <p className="user-name">{name}</p>
+              <button className="notification-icon-box  " onClick={onClickProfile}>
+                {/* <img src={userImage} alt="Profile" />
+                <p className="user-name">{'Akhlaq'}</p> */}
+                <FaUser className="notificaion-icon" color="#21331d"/>
               </button>
             </li>
           </ul>
