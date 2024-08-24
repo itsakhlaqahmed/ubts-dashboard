@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 
 import { FaAt, FaBell, FaUser } from "react-icons/fa6";
 import { getAuth } from "@firebase/auth";
 import { FaSignOutAlt } from "react-icons/fa";
 import { signOutUser } from "../../firebase/firebaseService";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ name }) => {
   const [openNotificaitons, setOpenNotification] = useState(false);
   const [showPane, setShowPane] = useState(false);
+  const navigate = useNavigate();
+  const user = getAuth();
+
+  useEffect(() => {
+    if (!user.currentUser) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   const onClickNotificationButton = () => {
     setOpenNotification(!openNotificaitons);

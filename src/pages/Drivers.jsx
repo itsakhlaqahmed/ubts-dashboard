@@ -6,7 +6,6 @@ import { IoMdRefreshCircle } from "react-icons/io";
 import {
   deleteDocument,
   getAllDocuments,
-  createDocument,
 } from "../firebase/firebaseService";
 import AddUserModal from "../components/addUserModal/AddUserModal";
 

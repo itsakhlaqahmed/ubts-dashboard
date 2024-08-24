@@ -19,11 +19,11 @@ const Students = () => {
     getStudents();
   }, []);
 
-  let totalStudents = students.length;
+  let totalStudents = students.length;  
   let approved = 0;
 
   const getApprovedCount = () => {
-    students.map((student) => {
+    students.forEach((student) => {
       if (student.isApproved == "true") approved++;
     });
   };

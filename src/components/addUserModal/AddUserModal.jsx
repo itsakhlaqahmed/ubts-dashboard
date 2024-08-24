@@ -5,7 +5,6 @@ import {
   createNewAccount,
   signIn,
 } from "../../firebase/firebaseService";
-import { getAuth } from "@firebase/auth";
 
 const AddUserModal = ({
   showModal,
